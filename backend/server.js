@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const { createUser } = require('./handlers');
+const {
+  getUser,
+  createUser,
+} = require('./handlers');
 
 require('dotenv').config();
 const PORT = process.env.PORT || 8000;
