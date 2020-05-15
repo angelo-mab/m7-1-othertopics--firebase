@@ -49,15 +49,22 @@ const getUser = async (email) => {
 
 const createUser = async (req, res) => {
   const returningUser = (await getUser(req.body.email));
-  console.log(returningUser)
-  const appUsersRef = db.ref('appUsers');
-  appUsersRef.push(req.body).then(() => {
-    res.status(200).json({
-      status: 200,
-      data: req.body,
-      message: 'new user',
+  console.log(returningUser);
+  if (returningUser) {
+    res
+      .status(200)
+      .json({ status: 200, data: req.body, message: 'returning user' });
+    return;
+  } else {
+    const appUsersRef = db.ref('appUsers');
+    appUsersRef.push(req.body).then(() => {
+      res.status(200).json({
+        status: 200,
+        data: req.body,
+        message: 'new user',
+      });
     });
-  });
+  }
 };
 
 module.exports = {

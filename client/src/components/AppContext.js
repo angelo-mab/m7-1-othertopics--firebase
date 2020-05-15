@@ -22,6 +22,7 @@ const providers = { googleProvider: new firebase.auth.GoogleAuthProvider() };
 
 const AppProvider = ({ children, signInWithGoogle, signOut, user }) => {
   const [appUser, setAppUser] = useState({});
+  const [message, setMessage] = useState('');
 
   const handleSignOut = () => {
     signOut();
@@ -43,12 +44,13 @@ const AppProvider = ({ children, signInWithGoogle, signOut, user }) => {
       })
         .then((res) => res.json())
         .then((json) => {
-          setAppUser(json.data)
+          setAppUser(json.data);
+          setMessage(json.message);
         });
     }
   }, [user]);
 
-  return <AppContext.Provider value={{ appUser, signInWithGoogle, handleSignOut }}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={{ appUser, signInWithGoogle, handleSignOut, message }}>{children}</AppContext.Provider>;
 };
 
 export default withFirebaseAuth({
