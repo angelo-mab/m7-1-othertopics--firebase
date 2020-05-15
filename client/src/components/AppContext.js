@@ -29,6 +29,7 @@ const AppProvider = ({ children, signInWithGoogle, signOut, user }) => {
     setAppUser({});
   };
 
+
   useEffect(() => {
     if (user) {
       fetch(`/users`, {
